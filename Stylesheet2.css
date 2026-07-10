@@ -1867,3 +1867,44 @@ a {
         height: 350px;
     }
 }
+
+/* ==================== SERVICES PAGE - READABILITY FIX ==================== */
+/* Forces the brand's dark-teal / ink text colours on the services page cards
+   and panels so nothing can render as light-on-light, regardless of any
+   inherited or var()-dependent colour elsewhere in the stylesheet. */
+.page-services .service-card,
+.page-services .testimonials-section {
+    background-color: #ffffff;
+    color: #1f3a40;
+}
+
+.page-services .tier-card,
+.page-services .pricing-row {
+    background-color: #f2f7f8;
+}
+
+.page-services .service-card h2,
+.page-services .section-heading h2,
+.page-services .tier-card h3,
+.page-services .pricing-table h3,
+.page-services .pricing-row .tier-label {
+    color: #014d5b;
+}
+
+.page-services .service-card p,
+.page-services .section-heading p,
+.page-services .tier-card .tier-desc,
+.page-services .tier-card ul li,
+.page-services .section-heading.list-section ul li,
+.page-services .pricing-row .tier-price {
+    color: #1f3a40;
+}
+
+.page-services .pricing-row .member-price {
+    color: #436169;
+}
+
+.page-services .tier-card ul li::before,
+.page-services .section-heading.list-section ul li::before {
+    background-color: #006d77;
+}
