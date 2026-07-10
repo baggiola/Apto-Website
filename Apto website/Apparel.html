@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Apparel - Apto Performance</title>
+    <link rel="stylesheet" href="Stylesheet2.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="page-light">
+    <header class="navbar">
+        <a class="logo" href="AptoPerformance2.html" aria-label="Apto Performance home">
+            <img src="Images/AptoBlueBG.png" alt="Apto Performance logo">
+        </a>
+        <nav class="nav-links">
+			<a href="AptoPerformance2.html">Home</a>
+			<a href="Coaches.html">Our Coaches</a>
+			<a href="Services.html">Services</a>
+			<a href="Apparel.html" class="active">Apparel</a>
+			
+		</nav>
+        <a href="Applicaton.html" class="apply-button">Apply Now</a>
+    </header>
+
+    <main class="shop-container">
+        <h1 class="page-title">Apto Performance Apparel</h1>
+
+        <div class="apparel-disclaimer">
+            <p>&#9432; We don't hold items in stock. Orders are batched and fulfilled once a minimum order quantity is reached — use the <strong>Show interest</strong> button to register yours and we'll be in touch when a drop is confirmed.</p>
+        </div>
+
+        <div class="shop-grid">
+            <div class="shop-item">
+                <div class="item-slides">
+                    <div class="item-image active">
+                        <img src="Images/AptoTshirtBlack.jpg" alt="Apto Performance T-Shirt Black - Front">
+                    </div>
+                    <div class="item-image">
+                        <img src="Images/AptoTshirtBlackBack.jpg" alt="Apto Performance T-Shirt Black - Back">
+                    </div>
+                    <button class="slide-prev" aria-label="Previous view">&#10094;</button>
+                    <button class="slide-next" aria-label="Next view">&#10095;</button>
+                </div>
+                <div class="item-details">
+                    <h3 class="item-name">Apto T-Shirt - Black</h3>
+                    <p class="item-price">Price: GBP 29.99</p>
+                    <button class="interest-button" type="button" data-item="Apto T-Shirt - Black">Show interest</button>
+                </div>
+            </div>
+
+            <div class="shop-item">
+                <div class="item-slides">
+                    <div class="item-image active">
+                        <img src="Images/AptoTshirtGreyFront.jpg" alt="Apto Performance T-shirt Grey - Front">
+                    </div>
+                    <div class="item-image">
+                        <img src="Images/AptoTshirtGreyBack.jpg" alt="Apto Performance T-shirt Grey - Back">
+                    </div>
+                    <button class="slide-prev" aria-label="Previous view">&#10094;</button>
+                    <button class="slide-next" aria-label="Next view">&#10095;</button>
+                </div>
+                <div class="item-details">
+                    <h3 class="item-name">Apto T-shirt - Grey</h3>
+                    <p class="item-price">Price: GBP 29.99</p>
+                    <button class="interest-button" type="button" data-item="Apto T-shirt - Grey">Show interest</button>
+                </div>
+            </div>
+
+            <div class="shop-item">
+                <div class="item-slides">
+                    <div class="item-image active">
+                        <img src="Images/AptoHoodieBlack.jpg" alt="Apto Performance Hoodie Black - Front">
+                    </div>
+                    <div class="item-image">
+                        <img src="Images/AptoHoodieBlackBack.jpg" alt="Apto Performance Hoodie Black - Back">
+                    </div>
+                    <button class="slide-prev" aria-label="Previous view">&#10094;</button>
+                    <button class="slide-next" aria-label="Next view">&#10095;</button>
+                </div>
+                <div class="item-details">
+                    <h3 class="item-name">Apto Hoodie - Black</h3>
+                    <p class="item-price">Price: GBP 34.99</p>
+                    <p class="item-status">Status: Unavailable</p>
+                    <button class="interest-button" type="button" data-item="Apto Hoodie - Black">Show interest</button>
+                </div>
+            </div>
+
+            <div class="shop-item">
+                <div class="item-slides">
+                    <div class="item-image active">
+                        <img src="Images/AptoHoodieGreyFront.jpg" alt="Apto Performance Hoodie Grey - Front">
+                    </div>
+                    <div class="item-image">
+                        <img src="Images/AptoHoodieGreyBack.jpg" alt="Apto Performance Hoodie Grey - Back">
+                    </div>
+                    <button class="slide-prev" aria-label="Previous view">&#10094;</button>
+                    <button class="slide-next" aria-label="Next view">&#10095;</button>
+                </div>
+                <div class="item-details">
+                    <h3 class="item-name">Apto Hoodie - Grey</h3>
+                    <p class="item-price">Price: GBP 34.99</p>
+                    <p class="item-status">Status: Unavailable</p>
+                    <button class="interest-button" type="button" data-item="Apto Hoodie - Grey">Show interest</button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <div class="interest-modal" id="interestModal" aria-hidden="true">
+    <div class="interest-dialog" role="dialog" aria-modal="true" aria-labelledby="interestTitle">
+        <button class="interest-close" type="button" aria-label="Close">&times;</button>
+        <h2 id="interestTitle">Show interest</h2>
+        <p class="interest-item" id="interestItem">Item</p>
+        <form class="interest-form" id="interestForm">
+            <div>
+                <label for="interestEmail">Email address *</label>
+                <input type="email" id="interestEmail" name="email" placeholder="you@email.com" required>
+            </div>
+            
+            <div>
+                <label for="interestSize">Size *</label>
+                <select id="interestSize" name="size" required>
+                    <option value="">Select a size</option>
+                    <option value="XS">XS</option>
+                    <option value="S">S</option>
+                    <option value="M">M</option>
+                    <option value="L">L</option>
+                    <option value="XL">XL</option>
+                    <option value="XXL">XXL</option>
+                </select>
+            </div>
+            
+            <input type="hidden" name="formType" value="interests">
+            <input type="hidden" id="interestProduct" name="product">
+            <button class="interest-submit" type="submit">Submit</button>
+            <p class="interest-note" id="interestNote" aria-live="polite"></p>
+        </form>
+    </div>
+</div>
+
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="logo">
+            <img src="Images/AptoBlueBG.png" alt="Apto Performance logo">
+        </div>
+            <small class="footer-note">(c) Apto Performance</small>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/people/Apto-Performance/100088809663048/#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+                <a href=""><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn"></a>
+                <a href="https://www.instagram.com/aptoperformance/"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+(function() {
+    
+    const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxnKYdPYnjAOEuteNbbjnvzeq5X55XL0g7RNMB8_50LRV9E2k8RzQNpLJGzI8JC-g3tlA/exec";
+
+    const items = document.querySelectorAll('.shop-item');
+    
+    items.forEach(item => {
+        const images = Array.from(item.querySelectorAll('.item-image'));
+        const prevButton = item.querySelector('.slide-prev');
+        const nextButton = item.querySelector('.slide-next');
+        let currentIndex = 0;
+
+        function showImage(index) {
+            images.forEach(img => img.classList.remove('active'));
+            images[index].classList.add('active');
+            currentIndex = index;
+        }
+
+        function nextImage() {
+            showImage((currentIndex + 1) % images.length);
+        }
+
+        function prevImage() {
+            showImage((currentIndex - 1 + images.length) % images.length);
+        }
+
+        prevButton.addEventListener('click', prevImage);
+        nextButton.addEventListener('click', nextImage);
+
+        item.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') prevImage();
+            if (e.key === 'ArrowRight') nextImage();
+        });
+    });
+
+    const modal = document.getElementById('interestModal');
+    const modalTitle = document.getElementById('interestItem');
+    const emailInput = document.getElementById('interestEmail');
+    const sizeSelect = document.getElementById('interestSize');
+    const productInput = document.getElementById('interestProduct');
+    const interestNote = document.getElementById('interestNote');
+    const form = document.getElementById('interestForm');
+    const closeButton = modal.querySelector('.interest-close');
+    let lastActiveButton = null;
+
+    function openModal(itemName, trigger) {
+        lastActiveButton = trigger;
+        modalTitle.textContent = itemName;
+        productInput.value = itemName;
+        interestNote.textContent = '';
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        setTimeout(() => emailInput.focus(), 0);
+    }
+
+    function closeModal() {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        form.reset();
+        if (lastActiveButton) {
+            lastActiveButton.focus();
+        }
+    }
+
+    document.querySelectorAll('.interest-button').forEach(button => {
+        button.addEventListener('click', () => {
+            openModal(button.dataset.item || 'Item', button);
+        });
+    });
+
+    closeButton.addEventListener('click', closeModal);
+
+    modal.addEventListener('click', (event) => {
+        if (event.target === modal) {
+            closeModal();
+        }
+    });
+
+    document.addEventListener('keydown', (event) => {
+        if (event.key === 'Escape' && modal.classList.contains('open')) {
+            closeModal();
+        }
+    });
+
+    form.addEventListener('submit', async (event) => {
+        event.preventDefault();
+        interestNote.textContent = 'Submitting...';
+
+        try {
+            const formData = new FormData(form);
+            
+            const response = await fetch(WEB_APP_URL, {
+                method: 'POST',
+                body: formData
+            });
+
+            if (!response.ok) {
+                throw new Error('Submission failed');
+            }
+
+            const result = await response.json();
+            
+            if (result.status === 'success') {
+                interestNote.textContent = 'Thanks! We will reach out soon.';
+                setTimeout(closeModal, 1500);
+            } else {
+                throw new Error(result.message || 'Submission failed');
+            }
+        } catch (error) {
+            interestNote.textContent = 'Sorry, something went wrong. Please try again.';
+            console.error('Submission error:', error);
+        }
+    });
+
+    const sequence = [
+        document.querySelector('.navbar'),
+        document.querySelector('.shop-container'),
+        document.querySelector('.footer')
+    ].filter(Boolean);
+
+    sequence.forEach((el, i) => {
+        el.classList.add('fade-seq');
+        el.style.setProperty('--delay', (i * 220) + 'ms');
+    });
+
+    requestAnimationFrame(() => {
+        requestAnimationFrame(() => {
+            sequence.forEach(el => el.classList.add('is-visible'));
+        });
+    });
+})();
+</script>
+</body>
+</html>

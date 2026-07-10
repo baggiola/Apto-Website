@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Our Coaches - Apto Performance</title>
+    <link rel="stylesheet" href="Stylesheet2.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        /* ===== COACH GALLERY ROW ===== */
+        .coaches-hero {
+            background: var(--color-brand);
+            padding: 120px 5vw 60px;
+            text-align: center;
+        }
+
+        .coaches-hero h1 {
+            font-family: var(--font-display);
+            font-size: clamp(28px, 4vw, 48px);
+            color: #ffffff;
+            margin-bottom: 0.5rem;
+            letter-spacing: 0.04em;
+        }
+
+        .coaches-hero > p {
+            color: rgba(255,255,255,0.75);
+            font-size: 1.05rem;
+            margin-bottom: 3rem;
+        }
+
+        .coach-gallery {
+            display: flex;
+            gap: 1.5rem;
+            justify-content: center;
+            flex-wrap: wrap;
+            align-items: stretch;
+        }
+
+        .coach-card {
+            position: relative;
+            width: 200px;
+            flex-shrink: 0;
+            cursor: pointer;
+            border-radius: var(--radius-lg);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            border: 2px solid rgba(255,255,255,0.1);
+            background: rgba(255,255,255,0.06);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .coach-card:hover,
+        .coach-card.active {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+            border-color: #7fd1d8;
+            background: rgba(127, 209, 216, 0.08);
+        }
+
+        .coach-card-photo {
+            position: relative;
+            flex-shrink: 0;
+        }
+
+        .coach-card-photo img {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            object-position: top center;
+            display: block;
+        }
+
+        .coach-card-label {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: linear-gradient(transparent, rgba(1, 22, 26, 0.92));
+            padding: 2rem 0.9rem 0.8rem;
+            color: #ffffff;
+            font-family: var(--font-display);
+            font-weight: 600;
+            font-size: 0.9rem;
+            letter-spacing: 0.03em;
+        }
+
+        .coach-card-label span {
+            display: block;
+            font-size: 0.72rem;
+            font-weight: 400;
+            color: #7fd1d8;
+            margin-top: 2px;
+        }
+
+        .coach-card-bullets {
+            padding: 0.9rem 1rem 0.5rem;
+            flex: 1;
+        }
+
+        .coach-card-bullets ul {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            text-align: left;
+        }
+
+        .coach-card-bullets ul li {
+            font-size: 0.75rem;
+            color: rgba(255,255,255,0.8);
+            line-height: 1.5;
+            padding: 0.25rem 0 0.25rem 0.9rem;
+            border-bottom: 1px solid rgba(255,255,255,0.07);
+            position: relative;
+        }
+
+        .coach-card-bullets ul li::before {
+            content: '›';
+            position: absolute;
+            left: 0;
+            color: #7fd1d8;
+            font-weight: 700;
+        }
+
+        .coach-card-bullets ul li:last-child {
+            border-bottom: none;
+        }
+
+        .coach-card-cta {
+            display: block;
+            text-align: center;
+            font-size: 0.72rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: #7fd1d8;
+            padding: 0.6rem 1rem 0.9rem;
+            opacity: 0.6;
+            transition: opacity 0.2s;
+        }
+
+        .coach-card:hover .coach-card-cta,
+        .coach-card.active .coach-card-cta {
+            opacity: 1;
+        }
+
+        /* ===== COACH DETAIL PANELS ===== */
+        .coaches-container {
+            background: #f4f3ef;
+        }
+
+        .coach-section {
+            overflow: hidden;
+            max-height: 0;
+            opacity: 0;
+            transition: max-height 0.65s ease, opacity 0.4s ease;
+        }
+
+        .coach-section.open {
+            max-height: 4000px;
+            opacity: 1;
+        }
+
+        .coach-section-inner {
+            padding: 4rem 5vw;
+            border-top: 3px solid #7fd1d8;
+        }
+
+        .coach-content {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .coach-header {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .coach-image {
+            flex-shrink: 0;
+            width: 220px;
+        }
+
+        .coach-image img {
+            width: 100%;
+            border-radius: var(--radius-lg);
+            object-fit: cover;
+            object-position: top center;
+            aspect-ratio: 3/4;
+            box-shadow: var(--shadow-md);
+        }
+
+        .coach-text {
+            flex: 1;
+            color: var(--color-ink);
+        }
+
+        .coach-text h2 {
+            font-family: var(--font-display);
+            font-size: 2rem;
+            color: var(--color-brand);
+            margin-bottom: 1rem;
+        }
+
+        .coach-text ul {
+            padding-left: 1.2rem;
+            margin-bottom: 1.5rem;
+            line-height: 1.9;
+            color: var(--color-ink-soft);
+        }
+
+        .extra-content {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.5s ease;
+        }
+
+        .extra-content.open {
+            max-height: 3000px;
+        }
+
+        .extra-content p {
+            color: var(--color-ink);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .extra-content h2 {
+            font-family: var(--font-display);
+            font-size: 1.4rem;
+            color: var(--color-brand);
+            margin: 2rem 0 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .coach-card { width: 140px; }
+            .coach-card img { height: 190px; }
+            .coach-header { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
+            .coach-image { width: 100%; }
+            .coaches-hero { padding: 100px 1.5rem 40px; }
+            .coach-section-inner { padding: 2.5rem 1.5rem; }
+        }
+    </style>
+</head>
+<body class="page-light">
+    <header class="navbar">
+        <a class="logo" href="AptoPerformance2.html" aria-label="Apto Performance home">
+            <img src="Images/AptoBlueBG.png" alt="Apto Performance logo">
+        </a>
+        <nav class="nav-links">
+            <a href="AptoPerformance2.html">Home</a>
+            <a href="Coaches.html" class="active">Our Coaches</a>
+            <a href="Services.html">Services</a>
+            <a href="Apparel.html">Apparel</a>
+        </nav>
+        <a href="Applicaton.html" class="apply-button">Apply Now</a>
+    </header>
+
+    <!-- COACH GALLERY ROW -->
+    <section class="coaches-hero">
+        <h1>Meet the Coaches</h1>
+        <p>Click a coach to find out more about them.</p>
+        <div class="coach-gallery">
+            <!-- ILHAN -->
+            <div class="coach-card" data-target="coach-ilhan" role="button" tabindex="0" aria-expanded="false">
+                <div class="coach-card-photo">
+                    <img src="Images/DSC01818.JPG" alt="Ilhan Omar">
+                    <div class="coach-card-label">Ilhan Omar <span>Powerlifting & NutritionCoach</span></div>
+                </div>
+                <div class="coach-card-bullets"><ul>
+                    <li>BSc Hons Sport &amp; Exercise Science</li>
+                    <li>BP certified coach</li>
+                    <li>Level 2 gym instructor</li>
+                    <li>Level 4 advanced sport nutrition</li>
+                    <li>4+ years coaching</li>
+                    <li>Stirling Uni PL head coach</li>
+                    <li>Regional to international level athletes</li>
+                    <li>Nutrition Coaching</li>
+                </ul></div>
+                <span class="coach-card-cta">View profile ›</span>
+            </div>
+            <!-- JAMIE -->
+            <div class="coach-card" data-target="coach-jamie" role="button" tabindex="0" aria-expanded="false">
+                <div class="coach-card-photo">
+                    <img src="Images/DSC01822.JPG" alt="Jamie Laidlaw">
+                    <div class="coach-card-label">Jamie Laidlaw <span>Powerlifting & NutritionCoach</span></div>
+                </div>
+                <div class="coach-card-bullets"><ul>
+                    <li>MSc Physiotherapy</li>
+                    <li>BSc (Hons) Applied Sport &amp; Exercise Science</li>
+                    <li>S&amp;C exp. with Scottish Football &amp; Rugby</li>
+                    <li>BP Level 2 Coach</li>
+                    <li>BP Divisional Referee</li>
+                    <li>10+ years gym experience</li>
+
+                </ul></div>
+                <span class="coach-card-cta">View profile ›</span>
+            </div>
+            <!-- PETER -->
+            <div class="coach-card" data-target="coach-peter" role="button" tabindex="0" aria-expanded="false">
+                <div class="coach-card-photo">
+                    <img src="Images/DSC01798.JPG" alt="Peter Young">
+                    <div class="coach-card-label">Peter Young <span>Powerlifting Coach</span></div>
+                </div>
+                <div class="coach-card-bullets"><ul>
+                    <li>BP Level 2 Coach</li>
+                    <li>Masters of Physiotherapy student</li>
+                    <li>No. 1 Scottish IPF male lifter (104.14 GL)</li>
+                    <li>10+ years gym experience</li>
+                    <li>Regional to national competition coaching</li>
+                    <li>Level 3 Diploma in Sports Excellence</li>
+                    
+                </ul></div>
+                <span class="coach-card-cta">View profile ›</span>
+            </div>
+            <!-- ALASDAIR -->
+            <div class="coach-card" data-target="coach-alasdair" role="button" tabindex="0" aria-expanded="false">
+                <div class="coach-card-photo">
+                    <img src="Images/PROFILE PIC.jpg" alt="Alasdair Wilson">
+                    <div class="coach-card-label">Alasdair Wilson <span>Powerlifting & Nutrition Coach</span></div>
+                </div>
+                <div class="coach-card-bullets"><ul>
+                    <li>MSc Physiotherapy</li>
+                    <li>Level 4 sports nutrition</li>
+                    <li>BSc (Hons) Sport &amp; Exercise Science</li>
+                    <li>BP Level 2 Coach</li>
+                    <li>Team Scotland coach</li>
+                    <li>10+ international medalists coached</li>
+                    <li>5+ years PL coaching</li>
+                    <li>S&C coaching experience with University Swimming and Water polo</li>
+
+                </ul></div>
+                <span class="coach-card-cta">View profile ›</span>
+            </div>
+            <!-- CIAR -->
+            <div class="coach-card" data-target="coach-ciar" role="button" tabindex="0" aria-expanded="false">
+                <div class="coach-card-photo">
+                    <img src="Images/Profile pic.jpeg" alt="Ciar White">
+                    <div class="coach-card-label">Ciar White <span>Powerlifting Coach</span></div>
+                </div>
+                <div class="coach-card-bullets"><ul>
+                    <li>BP National Referee</li>
+                    <li>BP Level 2 Coach</li>
+                    <li>Level 2 Gym Instructor</li>
+                    <li>Team Scotland coach (Home Nations &amp; Commonwealths)</li>
+                    <li>Represented Scotland as a lifter 3x</li>
+                    <li>Competing since 2019, lifting 10+ years</li>
+                </ul></div>
+                <span class="coach-card-cta">View profile ›</span>
+            </div>
+        </div>
+    </section>
+
+    <!-- COACH DETAIL SECTIONS -->
+    <main class="coaches-container">
+
+        <!-- ILHAN -->
+        <section class="coach-section" id="coach-ilhan">
+            <div class="coach-section-inner">
+                <div class="coach-content">
+                    <div class="coach-text">
+                        <div class="coach-header">
+                            <div class="coach-image"><img src="Images/DSC01818.JPG" alt="Ilhan"></div>
+                            <h2>Ilhan Omar</h2>
+                        </div>
+                        <p>Since embarking on my powerlifting journey in 2019, I have had the privilege to handle a great deal of lifters with varying experience levels, at regional and national competitions.<br><br>
+                                I firmly believe that effective coaching requires more than just knowledge - it requires communication, collaboration, and a deep understanding of each lifter's unique needs. That said, my passion and curiosity about the science behind movement has driven me to adopt a forward-thinking and open-minded attitude towards powerlifting training.<br><br>
+                                By developing personalised programs tailored to each lifter's specific needs, I am able to help them consistently carry out their training, to achieve their goals. Therefore, I am committed to working closely with my lifters to build a healthy coach-client relationship and optimise squat, bench, and deadlift efficiency in order to maximize performance.
+                            </p>
+                            <h2>Testimonials:</h2>
+                            <main class="cards-wrap">
+                                <div class="cards-grid">
+                                    <article class="testimonial-card" tabindex="0">
+                                        <div class="card-inner">
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Ilhan/Theo Bennett-41.jpeg" alt="Client: Theo"></div>
+                                            <div class="card-face card-back">
+                                                <p class="quote">"Ilhan's coaching is excellent, taking me from a beginner lifter to a national champ and international podiums. His ability to break down simple technical errors as well as complex programming changes has been incredibly helpful in my growth as a lifter. His communication is always prompt and I feel comfortable asking questions and suggesting my own ideas, however big or small."</p>
+                                                <div><div class="person">- Theo.</div></div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="testimonial-card" tabindex="0">
+                                        <div class="card-inner">
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Ilhan/IMG_3263.PNG" alt="Client: Mac"></div>
+                                            <div class="card-face card-back">
+                                                <p class="quote">"I started working with Ilhan at the beginning of my powerlifting journey, and he taught me the sport from the ground up—developing my technique, finding the right programming for me, and providing consistent, constructive feedback. Within a year, my competition total increased by over 100 kg in the same weight category, this let me qualify for the British University Champs."</p>
+                                                <div><div class="person">- Mac.</div></div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="testimonial-card" tabindex="0">
+                                        <div class="card-inner">
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Ilhan/d6abea19-e250-4210-b394-d5ebae6c5cef.jpg" alt="Client: Jen"></div>
+                                            <div class="card-face card-back">
+                                                <p class="quote">"Ilhan's coaching has been a huge part of my development as an athlete over the past 3 years. He is very personal, adapting training around my life, goals, and schedule while always focusing on the bigger picture. His communication is honest, supportive, and tailored to me as I feel understood and listened to."</p>
+                                                <div><div class="person">- Jen.</div></div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <a href="Applicaton.html" class="contact-button">Contact</a>
+                            </main>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- JAMIE -->
+        <section class="coach-section" id="coach-jamie">
+            <div class="coach-section-inner">
+                <div class="coach-content">
+                    <div class="coach-text">
+                        <div class="coach-header">
+                            <div class="coach-image"><img src="Images/DSC01822.JPG" alt="Jamie"></div>
+                            <h2>Jamie Laidlaw</h2>
+                        </div>
+                        <p>I started Apto Performance back in 2022 with the goal of creating a platform that helps as many driven individuals as possible reach their health and strength goals. Seeing how it's grown into a team of six coaches supporting 100+ clients has been genuinely rewarding, and it's pushed me to keep raising the standard of what we offer.<br><br>
+                            I value individualised coaching and rehab, and I've seen first-hand how the right plan and the right support can bridge the gap between good and excellent long-term outcomes. As a competitive powerlifter, I understand the demands and pressures that come with performance sport, but I also coach people at every stage, whether they are experienced lifters or completely new to the gym.<br><br>
+                            My coaching is evidence-informed, drawing on my BSc (Hons) in Applied Sport and Exercise Science, alongside practical coaching experience and what works best for each individual. I also hold an MSc in Physiotherapy, with a keen interest in musculoskeletal injuries, which helps me support clients who want to keep progressing while managing pain, setbacks, or recurring niggles.<br><br>
+                            In 2024, competing at the Commonwealth Powerlifting Championships in South Africa, where I went on to win the -105kg Open class, and achieved the heaviest deadlift in Scottish Powerlifting History (so far).<br><br>
+                            More than anything, I enjoy working with people who are motivated to improve, whether that means building strength, improving body composition, or returning to training with confidence after injury.
+                            </p>
+                            <h2>Testimonials:</h2>
+                            <main class="cards-wrap">
+                                <div class="cards-grid">
+                                    <article class="testimonial-card" tabindex="0">
+                                        <div class="card-inner">
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Jamie/Stuart.jpg" alt="Client: Stuart"></div>
+                                            <div class="card-face card-back">
+                                                <p class="quote">"The coaching is detailed, structured, and genuinely tailored to me as an athlete. I've received continuous support, clear feedback, and thoughtful adjustments that have helped me improve not just my numbers, but my understanding of training and performance. Jamie doesn't just provide a program—they provide consistent guidance and long-term development."</p>
+                                                <div><div class="person">- Stuart.</div></div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="testimonial-card" tabindex="0">
+                                        <div class="card-inner">
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Jamie/Beth.jpeg" alt="Client: Beth"></div>
+                                            <div class="card-face card-back">
+                                                <p class="quote">"Working with Apto Performance has helped me fall back in love with powerlifting and competing. The week-to-week support and feedback are more than I could ask for, and my technique has improved consistently across all three lifts. I feel stronger and more confident week after week."</p>
+                                                <div><div class="person">- Beth.</div></div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="testimonial-card" tabindex="0">
+                                        <div class="card-inner">
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Jamie/Matty.jpeg" alt="Client: Matty"></div>
+                                            <div class="card-face card-back">
+                                                <p class="quote">"After my first call with Jamie, I knew he was the coach to take things to the next level. Three years later, I've got a personalised programme that fits my busy schedule and has delivered real results, improved body composition and helped me add 150kg on my total."</p>
+                                                <div><div class="person">- Matty.</div></div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    
+                                </div>
+                                <a href="Applicaton.html" class="contact-button">Contact</a>
+                            </main>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- PETER -->
+        <section class="coach-section" id="coach-peter">
+            <div class="coach-section-inner">
+                <div class="coach-content">
+                    <div class="coach-text">
+                        <div class="coach-header">
+                            <div class="coach-image"><img src="Images/DSC01798.JPG" alt="Peter"></div>
+                            <h2>Peter Young</h2>
+                        </div>
+                        <p>Building on my current studies in physiotherapy, I take a holistic approach to coaching, ensuring each athlete's programme is tailored to their individual needs. Drawing on both my own experience and the evidence base, this approach not only helps maximise performance and progress, but also supports long-term enjoyment and longevity in the sport. Over the past two years, this philosophy has allowed me to successfully coach athletes to strong performances at both regional and national level meets.<br><br>
+                            Alongside coaching, I have been a competitive powerlifter for the past four years. During this time, I've won multiple Scottish titles and achieved podium finishes at both British Junior and Sub-Junior age-grade competitions. I currently hold the record for the highest male GL points in Scotland. However, alongside the successes, I've also experienced setbacks and losses within the sport. This allows me to empathise with and support my athletes through both the highs and the more challenging periods of their training and competitive journey.
+                            </p>
+                            <h2>Testimonials:</h2>
+                            <main class="cards-wrap">
+                                <div class="cards-grid">
+                                    <article class="testimonial-card" tabindex="0">
+                                        <div class="card-inner">
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Peter/Callum Dipalo.jpg" alt="Client: Callum"></div>
+                                            <div class="card-face card-back">
+                                                <p class="quote">"He explains things clearly and in different ways, making them easy for me to understand. Peter's skill on the platform, and knowledge as a coach is clear, but what stands out is that he genuinely cares for you as an athlete. I've never felt like just another number, and he always does what's best for you and your goals."</p>
+                                                <div><div class="person">- Callum.</div></div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="testimonial-card" tabindex="0">
+                                        <div class="card-inner">
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Peter/Christian Hitchcock.jpg" alt="Client: Christian"></div>
+                                            <div class="card-face card-back">
+                                                <p class="quote">"I have been coached by Peter for ten months and I am really impressed by the progress that I have been able to make with him. He listens to what you have to say and tailors your programmes to your goals and needs. I would highly recommend Peter to anyone looking to take their powerlifting to the next level."</p>
+                                                <div><div class="person">- Christian.</div></div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="testimonial-card" tabindex="0">
+                                        <div class="card-inner">
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Peter/Parsa Moradpour.jpg" alt="Client: Parsa"></div>
+                                            <div class="card-face card-back">
+                                                <p class="quote">"Working with Peter has completely reignited my passion for powerlifting. He's helped me grow stronger not only physically, but mentally, keeping me focused and motivated during times when I struggle to stay locked in. Peter is always open to ideas, values my perspective, and truly listens."</p>
+                                                <div><div class="person">- Parsa.</div></div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <a href="Applicaton.html" class="contact-button">Contact</a>
+                            </main>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- ALASDAIR -->
+        <section class="coach-section" id="coach-alasdair">
+            <div class="coach-section-inner">
+                <div class="coach-content">
+                    <div class="coach-text">
+                        <div class="coach-header">
+                            <div class="coach-image"><img src="Images/PROFILE PIC.jpg" alt="Alasdair"></div>
+                            <h2>Alasdair Wilson</h2>
+                        </div>
+                        <p>I have been competing in Powerlifting since 2019 and coaching powerlifting since 2021 and since then have had the privilege of coaching a wide range of individuals from complete beginners to international medallists and champions. Alongside this I am a divisional level referee, an active competitor, have served as president and head coach for Stirling University Powerlifting, and have coached internationally for team Scotland.<br><br>
+
+I value individualised and integrated coaching, rehab with high attention to detail and planning in programming. As someone who has competed internationally, I understand how important the right plan and support is in achieving the best possible outcomes and aim to coach athletes how I would like to be coached. I firmly believe in athlete improvement going beyond the program, and am committed to achieving every client’s goals while also ensuring their continued athletic development.<br><br>
+
+My educational background in sports science along with my practical sports coaching experience outside of powerlifting has allowed me to develop my broader skillset as a coach and use the appropriate evidence-based tools for the long term development of each individual. I also have a keen interest in musculoskeletal injuries, and my studies in physiotherapy allow me to widen the scope of my coaching to include in depth pain management and rehabilitation.<br><br>
+
+I feel very fortunate to be in a position to dedicate so much of my time to this sport, and thoroughly enjoy working and developing relationships with every client. I find a great deal of fulfillment in helping people achieve their goals, whether that means competing at a high level, improving body composition, or returning to training post injury.
+</p>
+                            <h2>Testimonials:</h2>
+                            <main class="cards-wrap">
+                                <div class="cards-grid">
+                                    <article class="testimonial-card" tabindex="0">
+                                        <div class="card-inner">
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Alastair/Ingram.tmp" alt="Client: Ingram"></div>
+                                            <div class="card-face card-back">
+                                                <p class="quote">"Alasdair is a fantastic coach, Not only is the programming super specific for me, he also gives me reasoning behind everything so I can understand things better as an athlete. Feedback from him is also phenomenal, I only receive quality feedback instead of being told that everything is just okay. Before working with him, I have had confidence issues leading up to comp and even during my first competition with him, Alasdair had more confidence in me than I had in myself."</p>
+                                                <div><div class="person">- Ingram.</div></div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="testimonial-card" tabindex="0">
+                                        <div class="card-inner">
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Jamie/Beth.jpeg" alt="Client: Beth"></div>
+                                            <div class="card-face card-back">
+                                                <p class="quote">"I've been working with Ali for around 18 months now and I've seen significant increases in all 3 lifts, can't recommend him highly enough. His attention to detail is exceptional, consistently asking the right questions, prompting meaningful reflection, and ensure I understand not just what I’m doing, but why. Every block is thoughtfully constructed with a clear purpose, and those intentions are always explained in a way that helps me give informed feedback and grow as an athlete."</p>
+                                                <div><div class="person">- Beth.</div></div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="testimonial-card" tabindex="0">
+                                        <div class="card-inner">
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Jamie/Matty.jpeg" alt="Client: Matty"></div>
+                                            <div class="card-face card-back">
+                                                <p class="quote">"Three years later, I've got a personalised programme that fits my busy schedule and has delivered real results, improved body composition and helped me add 150kg on my total."</p>
+                                                <div><div class="person">- Matty.</div></div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="testimonial-card" tabindex="0">
+                                        <div class="card-inner">
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Jamie/Morven.jpeg" alt="Client: Morven"></div>
+                                            <div class="card-face card-back">
+                                                <p class="quote">"The coaching gave me so much confidence in my lifting. I've been able to achieve huge goals, including representing GBR at both Worlds and Europeans, and I couldn't be more grateful."</p>
+                                                <div><div class="person">- Morven.</div></div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <a href="Applicaton.html" class="contact-button">Contact</a>
+                            </main>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- CIAR -->
+        <section class="coach-section" id="coach-ciar">
+            <div class="coach-section-inner">
+                <div class="coach-content">
+                    <div class="coach-text">
+                        <div class="coach-header">
+                            <div class="coach-image"><img src="Images/Profile pic.jpeg" alt="Ciar"></div>
+                            <h2>Ciar White</h2>
+                        </div>
+                        <p>I have been deeply involved in powerlifting since early 2019. Since 2021 I have coached a large range of powerlifters at various levels, from regional to national and international competitions. Alongside this I am a national level referee, an active competitor and had the privilege to coach and compete with team Scotland internationally a number of times.<br><br>
+                            My experience coaching on the gym floor with a wide range of populations, has improved my soft skills and ability to distill information and strengthened my eye for technique in an online setting.<br><br>
+                            Care for the lifters who trust me with their training is at the core of my coaching. I pride myself on offering a high-contact, consistent, and professional service so every athlete can be in the best position to succeed. No two people are the same and with attention to detail, clear communication, and a modern programming approach, my coaching is tailored to the lifter in front of me.
+                            </p>
+                            <h2>Testimonials:</h2>
+                            <main class="cards-wrap">
+                                <div class="cards-grid">
+                                    <article class="testimonial-card" tabindex="0">
+                                        <div class="card-inner">
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Ciar/Anna testimonial pic.jpg" alt="Client: Anna"></div>
+                                            <div class="card-face card-back">
+                                                <p class="quote">"In the 2 years I've been working with Ciar, I've seen a massive improvement in my lifts and technique. Under his coaching, I have become a much more confident and refined lifter. He encourages comp standard training which is highlighted in competitions, with many of his lifters repeatedly going 9/9."</p>
+                                                <div><div class="person">- Anna.</div></div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="testimonial-card" tabindex="0">
+                                        <div class="card-inner">
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Ciar/Mike testimonial pic.jpg" alt="Client: Mike"></div>
+                                            <div class="card-face card-back">
+                                                <p class="quote">"Ciar has a wealth of powerlifting knowledge and expertise, of which he communicates clearly. I would highly recommend him as a coach to anyone, whether they are first starting out in powerlifting or already a seasoned competitor."</p>
+                                                <div><div class="person">- Mike.</div></div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                    <article class="testimonial-card" tabindex="0">
+                                        <div class="card-inner">
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Ciar/Suzy Testimonial Pic.jpg" alt="Client: Suzy"></div>
+                                            <div class="card-face card-back">
+                                                <p class="quote">"Ciar is a great coach. I had done 6 powerlifting competitions before him and never gone 9/9. Both competitions so far with Ciar I placed first and went 9/9. Last competition I also lifetime PBd all lifts. Training is going better and more enjoyable than ever before."</p>
+                                                <div><div class="person">- Suzy.</div></div>
+                                            </div>
+                                        </div>
+                                    </article>
+                                </div>
+                                <a href="Applicaton.html" class="contact-button">Contact</a>
+                            </main>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+    </main>
+
+    <script>
+    (function () {
+        // ── Gallery card → expand section ──
+        const cards = document.querySelectorAll('.coach-card');
+
+        cards.forEach(card => {
+            function toggle() {
+                const targetId = card.dataset.target;
+                const section = document.getElementById(targetId);
+                if (!section) return;
+
+                const isOpen = section.classList.contains('open');
+
+                // Close all and deactivate all cards
+                document.querySelectorAll('.coach-section.open').forEach(s => s.classList.remove('open'));
+                document.querySelectorAll('.coach-card.active').forEach(c => {
+                    c.classList.remove('active');
+                    c.setAttribute('aria-expanded', 'false');
+                });
+
+                if (!isOpen) {
+                    section.classList.add('open');
+                    card.classList.add('active');
+                    card.setAttribute('aria-expanded', 'true');
+                    setTimeout(() => {
+                        section.scrollIntoView({ behavior: 'smooth', block: 'start' });
+                    }, 60);
+                }
+            }
+
+            card.addEventListener('click', toggle);
+            card.addEventListener('keydown', e => {
+                if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggle(); }
+            });
+        });
+
+        // ── Fade-in ──
+        [document.querySelector('.navbar'), document.querySelector('.coaches-hero')].filter(Boolean).forEach((el, i) => {
+            el.classList.add('fade-seq');
+            el.style.setProperty('--delay', (i * 180) + 'ms');
+        });
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+            document.querySelectorAll('.fade-seq').forEach(el => el.classList.add('is-visible'));
+        }));
+    })();
+    </script>
+
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="logo">
+                <img src="Images/AptoBlueBG.png" alt="Apto Performance logo">
+            </div>
+            <small class="footer-note">(c) Apto Performance</small>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/people/Apto-Performance/100088809663048/#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+                <a href=""><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn"></a>
+                <a href="https://www.instagram.com/aptoperformance/"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

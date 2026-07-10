@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact - Apto Performance</title>
+    <link rel="stylesheet" href="Stylesheet2.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Source+Sans+3:wght@400;500;600&display=swap" rel="stylesheet">
+</head>
+<body class="page-light">
+    <header class="navbar">
+        <a class="logo" href="AptoPerformance2.html" aria-label="Apto Performance home">
+            <img src="Images/AptoBlueBG.png" alt="Apto Performance logo">
+        </a>
+        <nav class="nav-links">
+			<a href="AptoPerformance2.html">Home</a>
+			<a href="Coaches.html">Our Coaches</a>
+			<a href="Services.html">Services</a>
+			<a href="Apparel.html">Apparel</a>
+			
+		</nav>
+        <a href="Applicaton.html" class="apply-button">Apply Now</a>
+    </header>
+
+    <main class="form-shell">
+        <div class="form-card">
+            <div class="form-header">
+                <img src="Images/AptoBlueBG.png" alt="Logo">
+                <h1 class="form-title">Start your application</h1>
+                <p class="form-subtitle">Tell us a little about your goals and we will reach out shortly.</p>
+            </div>
+            <form id="leadForm" class="lead-form">
+                <input type="hidden" name="formType" value="application">
+                <label>
+                    Name *
+                    <input type="text" name="name" required />
+                </label>
+
+                <label>
+                    Email *
+                    <input type="email" name="email" required />
+                </label>
+
+                <label>
+                    Phone number (for WhatsApp) *
+                    <input type="tel" name="phone" required />
+                </label>
+
+                <fieldset>
+                    <legend>How would you like to be contacted by us after filling out this form?</legend>
+                    <label><input type="radio" name="contactPreference" value="Email" /> Email</label>
+                    <label><input type="radio" name="contactPreference" value="WhatsApp" /> WhatsApp</label>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Do you have a preference of coach? (You may select up to 2 preferences) *</legend>
+
+                    <label><input type="checkbox" name="coachPreferences" value="Peter Young" required /> Peter Young</label>
+                    <label><input type="checkbox" name="coachPreferences" value="Ilhan Omar Nur Azam" /> Ilhan Omar Nur Azam</label>
+                    <label><input type="checkbox" name="coachPreferences" value="Ciar White" /> Ciar White</label>
+                    <label><input type="checkbox" name="coachPreferences" value="Alasdair Wilson" /> Alasdair Wilson</label>
+                    <label><input type="checkbox" name="coachPreferences" value="Jamie Laidlaw" /> Jamie Laidlaw</label>
+                    <label><input type="checkbox" name="coachPreferences" value="No preference" /> No preference</label>
+
+                    <small id="coachHelp" style="display:block; margin-top:6px;"></small>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Which service(s) are you interested in? *</legend>
+                    <label><input type="checkbox" name="services" value="Online Powerlifting Coaching" /> Online Powerlifting Coaching</label>
+                    <label><input type="checkbox" name="services" value="Online Hypertrophy Coaching" /> Online Hypertrophy Coaching</label>
+                    <label><input type="checkbox" name="services" value="Nutrition Coaching" /> Nutrition Coaching</label>
+                    <small id="servicesHelp" style="display:block; margin-top:6px;"></small>
+                </fieldset>
+
+                <fieldset>
+                    <legend>Are you a student? *</legend>
+                    <label><input type="radio" name="student" value="Yes" required /> Yes</label>
+                    <label><input type="radio" name="student" value="No" required /> No</label>
+                </fieldset>
+                <button type="submit" class="contact-button">Submit</button>
+                <p id="statusMsg" role="status" style="margin-top:10px;"></p>
+            </form>
+
+                <script>
+                const WEB_APP_URL = "https://script.google.com/macros/s/AKfycbxBwhcl7iCxLrchg8JkRRGEqtXnYZsgMQZTRJuyKBN4qho7pMiC_dNXkwK5_2NN6F521w/exec";
+
+                const form = document.getElementById("leadForm");
+                const statusMsg = document.getElementById("statusMsg");
+                const coachHelp = document.getElementById("coachHelp");
+
+                // Limit coach selection to max 2 (and keep "required" meaningful)
+                function enforceCoachLimit() {
+                    const checks = [...form.querySelectorAll('input[name="coachPreferences"]')];
+                    const selected = checks.filter(c => c.checked);
+
+                    // If none selected, keep at least one required so browser validation works
+                    checks.forEach(c => c.required = (selected.length === 0));
+
+                    if (selected.length > 2) {
+                    // Undo the last action: uncheck the box that triggered the change
+                    // (this handler is called after click, so we find the one that was just checked)
+                    const lastChecked = selected[selected.length - 1];
+                    lastChecked.checked = false;
+                    coachHelp.textContent = "You can select up to 2 coaches.";
+                    } else {
+                    coachHelp.textContent = selected.length === 2 ? "Max 2 selected." : "";
+                    }
+                }
+
+                form.addEventListener("change", (e) => {
+                    if (e.target.name === "coachPreferences") enforceCoachLimit();
+                });
+
+                form.addEventListener("submit", async (e) => {
+                    e.preventDefault();
+
+                    // Validate at least one service is selected
+                    const serviceChecks = [...form.querySelectorAll('input[name="services"]')];
+                    if (!serviceChecks.some(c => c.checked)) {
+                        document.getElementById("servicesHelp").textContent = "Please select at least one service.";
+                        serviceChecks[0].focus();
+                        return;
+                    }
+                    document.getElementById("servicesHelp").textContent = "";
+
+                    statusMsg.textContent = "Submitting…";
+
+                    try {
+                    // Collect data
+                    const formData = new FormData(form);
+
+                    // Gather coach preferences (checkboxes)
+                    const coachPreferences = formData.getAll("coachPreferences");
+
+                    const fd = new FormData(form);
+
+                    // Join checkbox values
+                    const coachPrefs = fd.getAll("coachPreferences").join(", ");
+                    fd.delete("coachPreferences");
+                    fd.append("coachPreferences", coachPrefs);
+
+                    const servicePrefs = fd.getAll("services").join(", ");
+                    fd.delete("services");
+                    fd.append("service", servicePrefs);
+
+                    const res = await fetch(WEB_APP_URL, {
+                    method: "POST",
+                    body: fd
+                    });
+
+                    if (!res.ok) {
+                    throw new Error("Submission failed");
+                    }
+
+                    statusMsg.textContent = "Thanks — your form has been submitted!";
+                    form.reset();
+                    enforceCoachLimit();
+                    } catch (err) {
+                    statusMsg.textContent = "Sorry — something went wrong. Please try again.";
+                    console.error(err);
+                    }
+                });
+                
+
+                // Initialize coach validation
+                enforceCoachLimit();
+
+                const sequence = [
+                    document.querySelector('.navbar'),
+                    document.querySelector('.form-shell'),
+                    document.querySelector('.footer')
+                ].filter(Boolean);
+
+                sequence.forEach((el, i) => {
+                    el.classList.add('fade-seq');
+                    el.style.setProperty('--delay', (i * 220) + 'ms');
+                });
+
+                requestAnimationFrame(() => {
+                    requestAnimationFrame(() => {
+                        sequence.forEach(el => el.classList.add('is-visible'));
+                    });
+                });
+                </script>
+
+        </div>
+    </main>
+
+    <footer class="footer">
+        <div class="footer-top">
+            <div class="logo">
+                <img src="Images/AptoBlueBG.png" alt="Apto Performance logo">
+            </div>
+            <small class="footer-note">(c) Apto Performance</small>
+            <div class="social-icons">
+                <a href="https://www.facebook.com/people/Apto-Performance/100088809663048/#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
+                <a href=""><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn"></a>
+                <a href="https://www.instagram.com/aptoperformance/"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
+            </div>
+        </div>
+    </footer>
+
+</body>
+</html>
