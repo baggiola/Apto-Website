@@ -3,7 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact - Apto Performance</title>
+    <title>Apply - Apto Performance</title>
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="stylesheet" href="Stylesheet2.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -92,7 +96,7 @@
                 const coachHelp = document.getElementById("coachHelp");
 
                 // Limit coach selection to max 2 (and keep "required" meaningful)
-                function enforceCoachLimit() {
+                function enforceCoachLimit(changed) {
                     const checks = [...form.querySelectorAll('input[name="coachPreferences"]')];
                     const selected = checks.filter(c => c.checked);
 
@@ -100,10 +104,9 @@
                     checks.forEach(c => c.required = (selected.length === 0));
 
                     if (selected.length > 2) {
-                    // Undo the last action: uncheck the box that triggered the change
-                    // (this handler is called after click, so we find the one that was just checked)
-                    const lastChecked = selected[selected.length - 1];
-                    lastChecked.checked = false;
+                    // Undo the click that went over the limit, so an earlier pick is
+                    // never silently dropped in favour of the new one
+                    if (changed && changed.checked) changed.checked = false;
                     coachHelp.textContent = "You can select up to 2 coaches.";
                     } else {
                     coachHelp.textContent = selected.length === 2 ? "Max 2 selected." : "";
@@ -111,7 +114,7 @@
                 }
 
                 form.addEventListener("change", (e) => {
-                    if (e.target.name === "coachPreferences") enforceCoachLimit();
+                    if (e.target.name === "coachPreferences") enforceCoachLimit(e.target);
                 });
 
                 form.addEventListener("submit", async (e) => {

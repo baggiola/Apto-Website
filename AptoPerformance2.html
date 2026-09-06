@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Apto Performance</title>
+    <link rel="icon" href="favicon.ico" sizes="any">
+    <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+    <link rel="icon" type="image/png" sizes="192x192" href="favicon-192.png">
+    <link rel="apple-touch-icon" href="apple-touch-icon.png">
     <link rel="stylesheet" href="Stylesheet2.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -82,7 +86,7 @@
 
     <!-- VIDEO -->
     <div class="hero-video-section">
-        <video autoplay muted loop playsinline controls>
+        <video class="hero-video" poster="Images/video-poster.jpg" muted loop playsinline controls preload="none">
             <source src="Images/0126.mp4" type="video/mp4">
         </video>
     </div>
@@ -223,6 +227,19 @@
                 sequence.forEach(el => el.classList.add('is-visible'));
             });
         });
+    })();
+
+    (function () {
+        // Only wide screens autoplay the showreel. Phones keep the poster and a
+        // tap to play, so a 12 MB download never starts on mobile data.
+        const video = document.querySelector('.hero-video');
+        if (!video) return;
+
+        if (window.matchMedia('(min-width: 769px)').matches) {
+            video.preload = 'auto';
+            video.autoplay = true;
+            video.play().catch(() => {});
+        }
     })();
     </script>
 
