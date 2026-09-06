@@ -31,6 +31,7 @@
         }
 
         .coach-gallery {
+            position: relative;
             display: flex;
             gap: 1.5rem;
             justify-content: center;
@@ -236,12 +237,85 @@
             margin: 2rem 0 1rem;
         }
 
+        /* Carousel chrome — hidden on desktop, shown on mobile */
+        .coach-dots { display: none; }
+        .gallery-hint-mobile { display: none; }
+
         @media (max-width: 768px) {
-            .coach-card { width: 140px; }
-            .coach-card img { height: 190px; }
+            /* ===== MOBILE: swipeable coach carousel ===== */
+            .coaches-hero { padding: 100px 1.5rem 40px; }
+            .coaches-hero > p { margin-bottom: 1.75rem; }
+            .gallery-hint-desktop { display: none; }
+            .gallery-hint-mobile { display: block; }
+
+            .coach-gallery {
+                --card-w: min(78vw, 320px);
+                flex-wrap: nowrap;
+                justify-content: flex-start;
+                overflow-x: auto;
+                overscroll-behavior-x: contain;
+                scroll-snap-type: x mandatory;
+                -webkit-overflow-scrolling: touch;
+                scrollbar-width: none;
+                gap: 1rem;
+                margin-inline: -1.5rem;
+                padding: 0.5rem calc((100vw - var(--card-w)) / 2) 0.25rem;
+            }
+
+            .coach-gallery::-webkit-scrollbar { display: none; }
+
+            .coach-card {
+                width: var(--card-w);
+                scroll-snap-align: center;
+            }
+
+            /* Touch devices have no hover — only the active card lifts */
+            .coach-card:hover {
+                transform: none;
+                box-shadow: none;
+                border-color: rgba(255,255,255,0.1);
+                background: rgba(255,255,255,0.06);
+            }
+
+            .coach-card.active {
+                transform: none;
+                border-color: #7fd1d8;
+                background: rgba(127, 209, 216, 0.08);
+                box-shadow: 0 16px 40px rgba(0,0,0,0.4);
+            }
+
+            .coach-card-photo img { height: 260px; }
+            .coach-card-label { font-size: 1rem; }
+            .coach-card-label span { font-size: 0.78rem; }
+            .coach-card-bullets ul li { font-size: 0.82rem; }
+            .coach-card-cta { opacity: 1; }
+
+            .coach-dots {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                gap: 0.5rem;
+                margin-top: 1.25rem;
+            }
+
+            .coach-dot {
+                width: 8px;
+                height: 8px;
+                padding: 0;
+                border: 0;
+                border-radius: 50%;
+                background: rgba(255,255,255,0.28);
+                cursor: pointer;
+                transition: background 0.25s ease, transform 0.25s ease;
+            }
+
+            .coach-dot.is-active {
+                background: #7fd1d8;
+                transform: scale(1.4);
+            }
+
             .coach-header { flex-direction: column; align-items: flex-start; gap: 1.25rem; }
             .coach-image { width: 100%; }
-            .coaches-hero { padding: 100px 1.5rem 40px; }
             .coach-section-inner { padding: 2.5rem 1.5rem; }
         }
     </style>
@@ -263,7 +337,8 @@
     <!-- COACH GALLERY ROW -->
     <section class="coaches-hero">
         <h1>Meet the Coaches</h1>
-        <p>Click a coach to find out more about them.</p>
+        <p class="gallery-hint-desktop">Click a coach to find out more about them.</p>
+        <p class="gallery-hint-mobile">Swipe to browse &mdash; tap a coach for more.</p>
         <div class="coach-gallery">
             <!-- ILHAN -->
             <div class="coach-card" data-target="coach-ilhan" role="button" tabindex="0" aria-expanded="false">
@@ -272,32 +347,29 @@
                     <div class="coach-card-label">Ilhan Omar <span>Powerlifting & NutritionCoach</span></div>
                 </div>
                 <div class="coach-card-bullets"><ul>
-                    <li>BSc Hons Sport &amp; Exercise Science</li>
-                    <li>BP certified coach</li>
-                    <li>Level 2 gym instructor</li>
-                    <li>Level 4 advanced sport nutrition</li>
-                    <li>4+ years coaching</li>
-                    <li>Stirling Uni PL head coach</li>
-                    <li>Regional to international level athletes</li>
-                    <li>Nutrition Coaching</li>
-                </ul></div>
+                    <li>BSc (Hons) Sport &amp; Exercise Science</li>
+                    <li>British Powerlifting Level 2 Coach</li>
+                    <li>Level 4 Advanced Sport Nutrition</li>
+                    <li>University of Stirling Powerlifting Head coach (2025 - current)</li>
+                    <li>5+ Years Powerlifting Coaching</li>
+                    <li>Regional and International athletes</li>
+</ul></div>
                 <span class="coach-card-cta">View profile ›</span>
             </div>
             <!-- JAMIE -->
             <div class="coach-card" data-target="coach-jamie" role="button" tabindex="0" aria-expanded="false">
                 <div class="coach-card-photo">
-                    <img src="Images/DSC01822.JPG" alt="Jamie Laidlaw">
+                    <img src="Images/JamieLaidlaw.jpg" alt="Jamie Laidlaw">
                     <div class="coach-card-label">Jamie Laidlaw <span>Powerlifting & NutritionCoach</span></div>
                 </div>
                 <div class="coach-card-bullets"><ul>
                     <li>MSc Physiotherapy</li>
                     <li>BSc (Hons) Applied Sport &amp; Exercise Science</li>
-                    <li>S&amp;C exp. with Scottish Football &amp; Rugby</li>
-                    <li>BP Level 2 Coach</li>
-                    <li>BP Divisional Referee</li>
-                    <li>10+ years gym experience</li>
-
-                </ul></div>
+                    <li>Coached at 2026 IPF Open Worlds with Team GB</li>
+                    <li>Previous SFA &amp; SRU S&amp;C Coaching</li>
+                    <li>British Powerlifting Level 2 Coach</li>
+                    <li>Level 4 Advanced Sports Nutrition</li>
+</ul></div>
                 <span class="coach-card-cta">View profile ›</span>
             </div>
             <!-- PETER -->
@@ -308,7 +380,7 @@
                 </div>
                 <div class="coach-card-bullets"><ul>
                     <li>BP Level 2 Coach</li>
-                    <li>Masters of Physiotherapy student</li>
+                    <li>MPhysio (Hons) Physiotherapy</li>
                     <li>No. 1 Scottish IPF male lifter (104.14 GL)</li>
                     <li>10+ years gym experience</li>
                     <li>Regional to national competition coaching</li>
@@ -325,15 +397,12 @@
                 </div>
                 <div class="coach-card-bullets"><ul>
                     <li>MSc Physiotherapy</li>
-                    <li>Level 4 sports nutrition</li>
-                    <li>BSc (Hons) Sport &amp; Exercise Science</li>
-                    <li>BP Level 2 Coach</li>
-                    <li>Team Scotland coach</li>
-                    <li>10+ international medalists coached</li>
-                    <li>5+ years PL coaching</li>
-                    <li>S&C coaching experience with University Swimming and Water polo</li>
-
-                </ul></div>
+                    <li>BSc (Hons) Applied Sport &amp; Exercise Science</li>
+                    <li>Coached multiple times on Team Scotland</li>
+                    <li>Level 4 Advanced Sports Nutrition</li>
+                    <li>Coached 10+ international medalists</li>
+                    <li>5+ Years Powerlifting Coaching</li>
+</ul></div>
                 <span class="coach-card-cta">View profile ›</span>
             </div>
             <!-- CIAR -->
@@ -343,16 +412,17 @@
                     <div class="coach-card-label">Ciar White <span>Powerlifting Coach</span></div>
                 </div>
                 <div class="coach-card-bullets"><ul>
-                    <li>BP National Referee</li>
-                    <li>BP Level 2 Coach</li>
-                    <li>Level 2 Gym Instructor</li>
-                    <li>Team Scotland coach (Home Nations &amp; Commonwealths)</li>
+                    <li>British Powerlifting National Referee</li>
+                    <li>British Powerlifting Level 2 Coach</li>
+                    <li>Level 3 Personal Trainer</li>
+                    <li>Coached multiple times on Team Scotland</li>
                     <li>Represented Scotland as a lifter 3x</li>
-                    <li>Competing since 2019, lifting 10+ years</li>
-                </ul></div>
+                    <li>5+ years coaching and 10+ years lifting</li>
+</ul></div>
                 <span class="coach-card-cta">View profile ›</span>
             </div>
         </div>
+        <div class="coach-dots"></div>
     </section>
 
     <!-- COACH DETAIL SECTIONS -->
@@ -385,7 +455,7 @@
                                     </article>
                                     <article class="testimonial-card" tabindex="0">
                                         <div class="card-inner">
-                                            <div class="card-face card-front"><img src="Images/Testimonials/Ilhan/IMG_3263.PNG" alt="Client: Mac"></div>
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Ilhan/IMG_3263.jpg" alt="Client: Mac"></div>
                                             <div class="card-face card-back">
                                                 <p class="quote">"I started working with Ilhan at the beginning of my powerlifting journey, and he taught me the sport from the ground up—developing my technique, finding the right programming for me, and providing consistent, constructive feedback. Within a year, my competition total increased by over 100 kg in the same weight category, this let me qualify for the British University Champs."</p>
                                                 <div><div class="person">- Mac.</div></div>
@@ -415,14 +485,14 @@
                 <div class="coach-content">
                     <div class="coach-text">
                         <div class="coach-header">
-                            <div class="coach-image"><img src="Images/DSC01822.JPG" alt="Jamie"></div>
+                            <div class="coach-image"><img src="Images/JamieLaidlaw.jpg" alt="Jamie"></div>
                             <h2>Jamie Laidlaw</h2>
                         </div>
-                        <p>I started Apto Performance back in 2022 with the goal of creating a platform that helps as many driven individuals as possible reach their health and strength goals. Seeing how it's grown into a team of six coaches supporting 100+ clients has been genuinely rewarding, and it's pushed me to keep raising the standard of what we offer.<br><br>
+                        <p>I founded Apto Performance back in 2022 with the goal of creating a platform that helps as many driven individuals as possible reach their health and strength goals. Seeing how it's grown into a team of six coaches supporting over 100 clients has been genuinely rewarding, and it's pushed me to keep raising the standard of what we offer.<br><br>
                             I value individualised coaching and rehab, and I've seen first-hand how the right plan and the right support can bridge the gap between good and excellent long-term outcomes. As a competitive powerlifter, I understand the demands and pressures that come with performance sport, but I also coach people at every stage, whether they are experienced lifters or completely new to the gym.<br><br>
-                            My coaching is evidence-informed, drawing on my BSc (Hons) in Applied Sport and Exercise Science, alongside practical coaching experience and what works best for each individual. I also hold an MSc in Physiotherapy, with a keen interest in musculoskeletal injuries, which helps me support clients who want to keep progressing while managing pain, setbacks, or recurring niggles.<br><br>
-                            In 2024, competing at the Commonwealth Powerlifting Championships in South Africa, where I went on to win the -105kg Open class, and achieved the heaviest deadlift in Scottish Powerlifting History (so far).<br><br>
-                            More than anything, I enjoy working with people who are motivated to improve, whether that means building strength, improving body composition, or returning to training with confidence after injury.
+                            My coaching is evidence-informed, drawing on my BSc (Hons) in Applied Sport and Exercise Science alongside practical coaching experience and what works best for each individual. I also hold an MSc in Physiotherapy, with a keen interest in musculoskeletal injuries, which helps me support clients who want to keep progressing while managing pain, setbacks, or recurring niggles.<br><br>
+                            Alongside coaching athletes year-round, I had the privilege of coaching for Team GB at the 2026 IPF World Classic Powerlifting Championships, supporting lifters on the biggest stage in the sport. As an athlete myself, I also represented Scotland at the 2024 Commonwealth Powerlifting Championships in South Africa, where I won the -105kg Open class and set the heaviest deadlift in Scottish Powerlifting history.<br><br>
+                            More than anything, I enjoy working with people who are motivated to improve, whether that means building strength, improving body composition, achieving success in competition, or returning to training with confidence after injury.
                             </p>
                             <h2>Testimonials:</h2>
                             <main class="cards-wrap">
@@ -535,7 +605,7 @@ I feel very fortunate to be in a position to dedicate so much of my time to this
                                 <div class="cards-grid">
                                     <article class="testimonial-card" tabindex="0">
                                         <div class="card-inner">
-                                            <div class="card-face card-front"><img src="Images/Testimonials/Alastair/Ingram.tmp" alt="Client: Ingram"></div>
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Alastair/Ingram.jpg" alt="Client: Ingram"></div>
                                             <div class="card-face card-back">
                                                 <p class="quote">"Alasdair is a fantastic coach, Not only is the programming super specific for me, he also gives me reasoning behind everything so I can understand things better as an athlete. Feedback from him is also phenomenal, I only receive quality feedback instead of being told that everything is just okay. Before working with him, I have had confidence issues leading up to comp and even during my first competition with him, Alasdair had more confidence in me than I had in myself."</p>
                                                 <div><div class="person">- Ingram.</div></div>
@@ -666,6 +736,51 @@ I feel very fortunate to be in a position to dedicate so much of my time to this
             });
         });
 
+        // ── Mobile carousel: swipe through coaches, dots track position ──
+        const gallery = document.querySelector('.coach-gallery');
+        const dotsWrap = document.querySelector('.coach-dots');
+
+        if (gallery && dotsWrap && cards.length) {
+            function centreCard(card) {
+                gallery.scrollTo({
+                    left: card.offsetLeft - (gallery.clientWidth - card.offsetWidth) / 2,
+                    behavior: 'smooth'
+                });
+            }
+
+            const dots = Array.from(cards).map((card, i) => {
+                const dot = document.createElement('button');
+                dot.type = 'button';
+                dot.className = 'coach-dot';
+                dot.setAttribute('aria-label', 'Show coach ' + (i + 1) + ' of ' + cards.length);
+                dot.addEventListener('click', () => centreCard(card));
+                dotsWrap.appendChild(dot);
+                return dot;
+            });
+
+            let queued = false;
+            function syncDots() {
+                queued = false;
+                const centre = gallery.scrollLeft + gallery.clientWidth / 2;
+                let nearest = 0;
+                let best = Infinity;
+                cards.forEach((card, i) => {
+                    const distance = Math.abs(card.offsetLeft + card.offsetWidth / 2 - centre);
+                    if (distance < best) { best = distance; nearest = i; }
+                });
+                dots.forEach((dot, i) => dot.classList.toggle('is-active', i === nearest));
+            }
+
+            gallery.addEventListener('scroll', () => {
+                if (!queued) { queued = true; requestAnimationFrame(syncDots); }
+            }, { passive: true });
+            window.addEventListener('resize', syncDots);
+            syncDots();
+
+            // Tapping an off-centre card brings it into view alongside its profile
+            cards.forEach(card => card.addEventListener('click', () => centreCard(card)));
+        }
+
         // ── Fade-in ──
         [document.querySelector('.navbar'), document.querySelector('.coaches-hero')].filter(Boolean).forEach((el, i) => {
             el.classList.add('fade-seq');
@@ -684,8 +799,6 @@ I feel very fortunate to be in a position to dedicate so much of my time to this
             </div>
             <small class="footer-note">(c) Apto Performance</small>
             <div class="social-icons">
-                <a href="https://www.facebook.com/people/Apto-Performance/100088809663048/#"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/facebook.svg" alt="Facebook"></a>
-                <a href=""><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/linkedin.svg" alt="LinkedIn"></a>
                 <a href="https://www.instagram.com/aptoperformance/"><img src="https://cdn.jsdelivr.net/gh/simple-icons/simple-icons/icons/instagram.svg" alt="Instagram"></a>
             </div>
         </div>

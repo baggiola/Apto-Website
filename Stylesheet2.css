@@ -1090,7 +1090,7 @@ a {
 }
 
 .cards-grid .testimonial-card {
-    height: 340px;
+    min-height: 340px;
 }
 
 .cards-grid .testimonial-card img {
@@ -1188,6 +1188,24 @@ a {
     font-weight: 700;
     color: #014d5b;
     margin-top: 0;
+}
+
+/* Coach testimonial cards grow to fit their longest quote instead of clipping
+   it: the back face sits in normal flow so it sets the card height, and the
+   front photo is layered over it. Grid stretch keeps each row level. */
+.cards-grid .card-back {
+    position: relative;
+    min-height: 100%;
+}
+
+@media (max-width: 600px) {
+    .cards-grid .card-back {
+        padding: 1.35rem;
+    }
+
+    .cards-grid .card-back .quote {
+        font-size: 0.9rem;
+    }
 }
 
 /* ==================== SHOP SECTION ==================== */
