@@ -53,13 +53,13 @@
                 </label>
 
                 <fieldset>
-                    <legend>How would you like to be contacted by us after filling out this form?</legend>
-                    <label><input type="radio" name="contactPreference" value="Email" /> Email</label>
+                    <legend>How should we contact you? *</legend>
+                    <label><input type="radio" name="contactPreference" value="Email" required /> Email</label>
                     <label><input type="radio" name="contactPreference" value="WhatsApp" /> WhatsApp</label>
                 </fieldset>
 
                 <fieldset>
-                    <legend>Do you have a preference of coach? (You may select up to 2 preferences) *</legend>
+                    <legend>Preferred coach (up to 2) *</legend>
 
                     <label><input type="checkbox" name="coachPreferences" value="Peter Young" required /> Peter Young</label>
                     <label><input type="checkbox" name="coachPreferences" value="Ilhan Omar Nur Azam" /> Ilhan Omar Nur Azam</label>
@@ -68,7 +68,7 @@
                     <label><input type="checkbox" name="coachPreferences" value="Jamie Laidlaw" /> Jamie Laidlaw</label>
                     <label><input type="checkbox" name="coachPreferences" value="No preference" /> No preference</label>
 
-                    <small id="coachHelp" style="display:block; margin-top:6px;"></small>
+                    <small id="coachHelp" class="form-help"></small>
                 </fieldset>
 
                 <fieldset>
@@ -76,7 +76,7 @@
                     <label><input type="checkbox" name="services" value="Online Powerlifting Coaching" /> Online Powerlifting Coaching</label>
                     <label><input type="checkbox" name="services" value="Online Hypertrophy Coaching" /> Online Hypertrophy Coaching</label>
                     <label><input type="checkbox" name="services" value="Nutrition Coaching" /> Nutrition Coaching</label>
-                    <small id="servicesHelp" style="display:block; margin-top:6px;"></small>
+                    <small id="servicesHelp" class="form-help"></small>
                 </fieldset>
 
                 <fieldset>
@@ -85,7 +85,7 @@
                     <label><input type="radio" name="student" value="No" required /> No</label>
                 </fieldset>
                 <button type="submit" class="contact-button">Submit</button>
-                <p id="statusMsg" role="status" style="margin-top:10px;"></p>
+                <p id="statusMsg" class="form-status" role="status"></p>
             </form>
 
                 <script>

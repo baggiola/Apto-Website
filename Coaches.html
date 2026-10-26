@@ -166,16 +166,29 @@
             background: #f4f3ef;
         }
 
+        /* Closed panels take up no space: the stylesheet's padding, margin and
+           shadow would otherwise leave a gap for every hidden coach */
         .coach-section {
             overflow: hidden;
             max-height: 0;
             opacity: 0;
-            transition: max-height 0.65s ease, opacity 0.4s ease;
+            padding: 0;
+            margin-top: 0;
+            margin-bottom: 0;
+            box-shadow: none;
+            transition: opacity 0.4s ease;
         }
 
+        /* Opens at full height straight away (fading in) so the scroll to it
+           lands on the panel rather than the bottom of a still-growing page */
         .coach-section.open {
-            max-height: 4000px;
+            max-height: none;
             opacity: 1;
+            box-shadow: var(--shadow-md);
+        }
+
+        .coaches-container:not(:has(.coach-section.open)) {
+            padding: 0;
         }
 
         .coach-section-inner {
@@ -512,10 +525,10 @@
                                 <div class="cards-grid">
                                     <article class="testimonial-card" tabindex="0">
                                         <div class="card-inner">
-                                            <div class="card-face card-front"><img src="Images/Testimonials/Jamie/Stuart.jpg" alt="Client: Stuart"></div>
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Jamie/Morven.jpeg" alt="Client: Morven"></div>
                                             <div class="card-face card-back">
-                                                <p class="quote">"The coaching is detailed, structured, and genuinely tailored to me as an athlete. I've received continuous support, clear feedback, and thoughtful adjustments that have helped me improve not just my numbers, but my understanding of training and performance. Jamie doesn't just provide a program—he provides consistent guidance and long-term development."</p>
-                                                <div><div class="person">- Stuart.</div></div>
+                                                <p class="quote">"The coaching gave me so much confidence in my lifting. I've been able to achieve huge goals, including representing GBR at both Worlds and Europeans, and I couldn't be more grateful."</p>
+                                                <div><div class="person">- Morven.</div></div>
                                             </div>
                                         </div>
                                     </article>
@@ -627,28 +640,19 @@ I feel very fortunate to be in a position to dedicate so much of my time to this
                                     </article>
                                     <article class="testimonial-card" tabindex="0">
                                         <div class="card-inner">
-                                            <div class="card-face card-front"><img src="Images/Testimonials/Jamie/Beth.jpeg" alt="Client: Beth"></div>
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Alastair/Aimee.jpg" alt="Client: Aimee"></div>
                                             <div class="card-face card-back">
-                                                <p class="quote">"I've been working with Ali for around 18 months now and I've seen significant increases in all 3 lifts, can't recommend him highly enough. His attention to detail is exceptional, consistently asking the right questions, prompting meaningful reflection, and ensure I understand not just what I’m doing, but why. Every block is thoughtfully constructed with a clear purpose, and those intentions are always explained in a way that helps me give informed feedback and grow as an athlete."</p>
-                                                <div><div class="person">- Beth.</div></div>
+                                                <p class="quote">"I've been working with Alasdair for over 4 years now, and have made massive progress on my lifts in terms of strength and technique. Alasdair has great attention to detail which really shows in his programming and feedback. He has been responsive to problems and has adapted the programming to reflect this. He is really knowledgeable about powerlifting and an incredible handler."</p>
+                                                <div><div class="person">- Aimee.</div></div>
                                             </div>
                                         </div>
                                     </article>
                                     <article class="testimonial-card" tabindex="0">
                                         <div class="card-inner">
-                                            <div class="card-face card-front"><img src="Images/Testimonials/Jamie/Matty.jpeg" alt="Client: Matty"></div>
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Alastair/Faye.jpg" alt="Client: Faye"></div>
                                             <div class="card-face card-back">
-                                                <p class="quote">"Three years later, I've got a personalised programme that fits my busy schedule and has delivered real results, improved body composition and helped me add 150kg on my total."</p>
-                                                <div><div class="person">- Matty.</div></div>
-                                            </div>
-                                        </div>
-                                    </article>
-                                    <article class="testimonial-card" tabindex="0">
-                                        <div class="card-inner">
-                                            <div class="card-face card-front"><img src="Images/Testimonials/Jamie/Morven.jpeg" alt="Client: Morven"></div>
-                                            <div class="card-face card-back">
-                                                <p class="quote">"The coaching gave me so much confidence in my lifting. I've been able to achieve huge goals, including representing GBR at both Worlds and Europeans, and I couldn't be more grateful."</p>
-                                                <div><div class="person">- Morven.</div></div>
+                                                <p class="quote">"I've been working with Ali for around 18 months now and I've seen significant increases in all 3 lifts, can't recommend him highly enough. His attention to detail is exceptional, consistently asking the right questions, prompting meaningful reflection, and ensuring I understand not just what I’m doing, but why. Every block is thoughtfully constructed with a clear purpose, and those intentions are always explained in a way that helps me give informed feedback and grow as an athlete."</p>
+                                                <div><div class="person">- Faye.</div></div>
                                             </div>
                                         </div>
                                     </article>
@@ -687,7 +691,7 @@ I feel very fortunate to be in a position to dedicate so much of my time to this
                                     </article>
                                     <article class="testimonial-card" tabindex="0">
                                         <div class="card-inner">
-                                            <div class="card-face card-front"><img src="Images/Testimonials/Ciar/Mike testimonial pic.jpg" alt="Client: Mike"></div>
+                                            <div class="card-face card-front"><img src="Images/Testimonials/Ciar/Mike.jpg" alt="Client: Mike"></div>
                                             <div class="card-face card-back">
                                                 <p class="quote">"Ciar has a wealth of powerlifting knowledge and expertise, of which he communicates clearly. I would highly recommend him as a coach to anyone, whether they are first starting out in powerlifting or already a seasoned competitor."</p>
                                                 <div><div class="person">- Mike.</div></div>

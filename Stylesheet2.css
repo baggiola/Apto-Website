@@ -1395,6 +1395,13 @@ a {
     font-size: 0.95rem;
 }
 
+button,
+input,
+select,
+textarea {
+    font-family: inherit;
+}
+
 .interest-form input[type="email"],
 .interest-form select,
 .form-field input,
@@ -1575,13 +1582,38 @@ a {
 
 .lead-form input[type="radio"],
 .lead-form input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
     margin: 0;
-    transform: translateY(1px);
+    flex-shrink: 0;
+    accent-color: var(--color-brand);
+}
+
+.lead-form .form-help:empty,
+.lead-form .form-status:empty {
+    display: none;
+}
+
+.lead-form .form-help {
+    color: var(--color-brand-strong);
+    font-weight: 600;
+}
+
+.lead-form .form-status {
+    text-align: center;
+    color: var(--color-brand-strong);
+    font-weight: 600;
 }
 
 .lead-form .contact-button {
     width: 100%;
-    margin-top: 0.6rem;
+    margin: 0.6rem 0 0;
+    background: var(--color-brand);
+}
+
+.lead-form .contact-button:hover,
+.lead-form .contact-button:focus {
+    background: var(--color-brand-strong);
 }
 
 /* ==================== HOME SERVICES SECTION ==================== */
@@ -1826,6 +1858,15 @@ a {
         margin-bottom: 2.5rem;
     }
     
+    .form-shell {
+        min-height: 0;
+        padding: 2rem 1rem 3rem;
+    }
+
+    .form-card {
+        padding: 2rem 1.4rem 2.2rem;
+    }
+
     .navbar {
         padding: 14px 20px;
         flex-wrap: wrap;
